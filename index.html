@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <title>Orc ocr</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="ork64.png">
+    <link rel="shortcut icon" href="orc.png">
     <script src="./tesseract.min.js"></script>
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <div class="header">
         <h1>Orc ocr</h1>
-        <a href="index.html"><img src="ork64.png" alt="Orc" style="width: 64px;"></a>
+        <a href="index.html"><img src="orc.png" alt="Orc" style="width: 64px;"></a>
         <p class="italic">This little orc eats your image files and pukes out the text again. So delicious!</p>
         <hr>
         <h4>Upload image</h4>
@@ -33,10 +33,10 @@
     <script>
         const recognize = async ({ target: { files } }) => {
             document.getElementById("ocrText").innerText = "Loading...";
-            document.getElementById("textDiv").style.display = 'block';
+            document.getElementById("textDiv").classList.remove('d-none');
 
             document.getElementById("imgInput").src = URL.createObjectURL(files[0]);
-            document.getElementById("imgDiv").style.display = 'block';
+            document.getElementById("imgDiv").classList.remove('d-none');
 
             const worker = await Tesseract.createWorker("deu", 1, {
                 corePath: './tesseract-core/tesseract-core-simd.wasm.js',
