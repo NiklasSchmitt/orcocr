@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Orc ocr</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="ork64.png">
+    <script src="./tesseract.min.js"></script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Orc ocr</h1>
+        <a href="index.html"><img src="ork64.png" alt="Orc" style="width: 64px;"></a>
+        <p class="italic">This little orc eats your image files and pukes out the text again. So delicious!</p>
+        <hr>
+        <h4>Upload image</h4>
+        <input type="file" id="imgUpload">
+        <hr>
+    </div>
+    <div id="imgDiv" class="column d-none">
+        <h4>Input Image</h4>
+        <img id="imgInput">
+    </div>
+    <div id="textDiv" class="column d-none">
+        <h4>Output Text</h4>
+        <p id="ocrText"></p>
+    </div>
+    <div class="footer">
+        <a href="https://www.flaticon.com/de/kostenlose-icons/monster">Monster-Icon created by Freepik - Flaticon</a>
+    </div>
+
+    <script>
+        const recognize = async ({ target: { files } }) => {
+            document.getElementById("ocrText").innerText = "Loading...";
+            document.getElementById("textDiv").style.display = 'block';
+
+            document.getElementById("imgInput").src = URL.createObjectURL(files[0]);
+            document.getElementById("imgDiv").style.display = 'block';
+
+            const worker = await Tesseract.createWorker("deu", 1, {
+                corePath: './tesseract-core/tesseract-core-simd.wasm.js',
+                workerPath: "./worker.min.js"
+            });
+            const ret = await worker.recognize(files[0]);
+
+            let resultText = ret.data.text;
+            let count = resultText.trim().replace(/\s+/g, ' ').split(' ').length;
+            document.getElementById("ocrText").innerText = count+' words found\n\n'+resultText;
+        }
+
+        const elm = document.getElementById('imgUpload');
+        elm.addEventListener('change', function() {
+            let fileTypes = ["image/png", "image/jpeg"];
+            if (!fileTypes.includes(this.files[0].type)) {
+                return alert("File type '" + this.files[0].type + "' not supported!");
+            }
+
+            if (this.files[0].size > 1024 * 1024 * 10) {
+                return alert('File size too large!');
+            }
+
+            recognize({ target: { files: this.files } });
+        });
+    </script>
+</body>
+</html>

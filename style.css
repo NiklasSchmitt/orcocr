@@ -1,0 +1,66 @@
+@media screen and (min-width: 300px) {
+    .column {
+        width: 100%;
+        padding: 5px;
+        margin: 5px;
+        border: 0.5px dotted #60daa8;
+    }
+
+    .footer {
+        width: 100%;
+        text-align: center;
+        font-size: 10px;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .column {
+        float: left;
+        width: 48%;
+        padding: 5px;
+        margin: 5px;
+        border: 0.5px dotted #60daa8;
+    }
+
+    .footer {
+        width: 100%;
+        text-align: center;
+        font-size: 10px;
+        float: none;
+    }
+}
+
+.header {
+    text-align: center;
+}
+
+.footer a {
+    text-decoration: none;
+    color: #60daa8;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.d-none {
+    display: none;
+}
+
+hr {
+    color: #60daa8;
+}
+
+h4 {
+    color: #60daa8;
+}
+
+img {
+    max-width: 98%;
+}
+
+html {
+    font-family: Arial, sans-serif;
+    border: 10px solid #60daa8;
+    padding: 2px;
+}
